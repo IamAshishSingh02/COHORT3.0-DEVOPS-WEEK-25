@@ -37,4 +37,5 @@ jobs:
 
             npm install
             npm run build
-            npm run start
+            npm install -g pm2
+            pm2 restart next-app || pm2 start npm --name next-app -- start
