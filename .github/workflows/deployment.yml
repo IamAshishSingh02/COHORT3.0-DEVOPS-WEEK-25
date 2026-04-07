@@ -22,9 +22,19 @@ jobs:
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           port: 22
           script: |
-            mkdir week-25
-            cd week-25
+            if [ ! -d "COHORT3.0-DEVOPS-WEEK-25" ]; then
+              git clone https://github.com/IamAshishSingh02/COHORT3.0-DEVOPS-WEEK-25.git
+            fi
+
+            cd COHORT3.0-DEVOPS-WEEK-25
             git pull
-            npm i
+
+            if ! command -v npm &> /dev/null
+            then
+              curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+              sudo apt install -y nodejs
+            fi
+
+            npm install
             npm run build
             npm run start
